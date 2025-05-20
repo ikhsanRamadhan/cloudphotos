@@ -11,6 +11,17 @@
   ![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=3ECF8E)
 </div>
 
+## 🖼️ Screenshots
+
+![1](https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d)
+![2](https://github.com/user-attachments/assets/b776b004-0ab6-4fdd-a1e1-aef283fdb8b5)
+![3](https://github.com/user-attachments/assets/64573b64-4f1f-4187-abf0-c6dd8db909af)
+![4](https://github.com/user-attachments/assets/c6103b01-e03c-4eae-865a-a7441f744e2a)
+![5](https://github.com/user-attachments/assets/9de37e1e-2703-4de2-9318-c41a2250df3a)
+![6](https://github.com/user-attachments/assets/624b543f-3056-4107-a9de-1034e10b2af9)
+![7](https://github.com/user-attachments/assets/9f0c9310-3007-45aa-819d-449d6dabd944)
+
+
 ## 📱 Video Demo
 
 [Click here to watch the demo video](https://youtu.be/demo-link)
@@ -76,12 +87,11 @@ yarn install
 
 3. Create a `.env` file in the project root:
 ```
-GOOGLE_AI_API_KEY=your_google_ai_api_key
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_anon_key
-IMAGEKIT_URL=your_imagekit_url
-IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
-IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+EXPO_PUBLIC_IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
+EXPO_PUBLIC_IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+EXPO_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 ```
 
 4. Start the development server:
