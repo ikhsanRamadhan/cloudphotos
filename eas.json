@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 16.6.1",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://bszzqotfcayreigvsswp.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzenpxb3RmY2F5cmVpZ3Zzc3dwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3Nzk4MzQsImV4cCI6MjA2MjM1NTgzNH0.6_Mcw-gUqTcBrsOdENzb_biWzGwyoE3TuynGBIMHyYk",
+        "EXPO_PUBLIC_IMAGEKIT_URL_ENDPOINT": "https://ik.imagekit.io/galleryIkhsan/",
+        "EXPO_PUBLIC_IMAGEKIT_PUBLIC_KEY": "public_cw0+HaLTisOaWMeHc2jfi3dXr5Y=",
+        "EXPO_PUBLIC_GEMINI_API_KEY": "AIzaSyA9aIPSf5UgEUpMR7pr3s4s1yBdfaykS28"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "apk": {
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
