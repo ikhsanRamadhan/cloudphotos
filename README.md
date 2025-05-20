@@ -1,7 +1,7 @@
 # CloudPhotos
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/1882446e-c1d3-46ed-a2f6-71e650e891fe" alt="CloudPhotos Logo" />
+  <img src="https://github.com/user-attachments/assets/1882446e-c1d3-46ed-a2f6-71e650e891fe" alt="CloudPhotos Logo" width="300" height="300" />
 
   <h3>Your Intelligent Photo Gallery Powered by AI</h3>
   
