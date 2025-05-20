@@ -32,7 +32,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDb-X_OrxH7PFx3_7KU0aQXHdsjVLsWWbI"
+          "apiKey": "REPLACE_WITH_YOUR_GOOGLE_MAPS_API_KEY"
         }
       }
     },
