@@ -13,6 +13,7 @@
 
 ## 🖼️ Screenshots
 
+<img src="[https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d" alt="CloudPhotos Logo" width="400" height="auto" />
 ![1](https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d)
 ![2](https://github.com/user-attachments/assets/b776b004-0ab6-4fdd-a1e1-aef283fdb8b5)
 ![3](https://github.com/user-attachments/assets/64573b64-4f1f-4187-abf0-c6dd8db909af)
