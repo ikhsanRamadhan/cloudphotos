@@ -528,7 +528,7 @@ export default function MediaContextProvider({ children }: PropsWithChildren) {
                 responseMimeType: 'text/plain',
             };
             
-            const model = 'gemini-1.5-flash';
+            const model = 'gemma-3-27b-it';
             
             const contents = [
                 {
@@ -562,6 +562,7 @@ export default function MediaContextProvider({ children }: PropsWithChildren) {
             
             try {
                 const parsed = JSON.parse(text);
+                console.log('Parsed JSON:', JSON.stringify(parsed, null, 2));
                 return parsed;
             } catch (e) {
                 const cleaned = text
