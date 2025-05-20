@@ -13,17 +13,15 @@
 
 ## 🖼️ Screenshots
 
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d" alt="CloudPhotos Logo" width="200" height="auto" />
+<div align="left" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px;">
+  <img src="https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d" alt="CloudPhotos1" width="200" />
+  <img src="https://github.com/user-attachments/assets/b776b004-0ab6-4fdd-a1e1-aef283fdb8b5" alt="CloudPhotos2" width="200" />
+  <img src="https://github.com/user-attachments/assets/64573b64-4f1f-4187-abf0-c6dd8db909af" alt="CloudPhotos3" width="200" />
+  <img src="https://github.com/user-attachments/assets/c6103b01-e03c-4eae-865a-a7441f744e2a" alt="CloudPhotos4" width="200" />
+  <img src="https://github.com/user-attachments/assets/9de37e1e-2703-4de2-9318-c41a2250df3a" alt="CloudPhotos5" width="200" />
+  <img src="https://github.com/user-attachments/assets/624b543f-3056-4107-a9de-1034e10b2af9" alt="CloudPhotos6" width="200" />
+  <img src="https://github.com/user-attachments/assets/9f0c9310-3007-45aa-819d-449d6dabd944" alt="CloudPhotos7" width="200" />
 </div>
-
-![1](https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d)
-![2](https://github.com/user-attachments/assets/b776b004-0ab6-4fdd-a1e1-aef283fdb8b5)
-![3](https://github.com/user-attachments/assets/64573b64-4f1f-4187-abf0-c6dd8db909af)
-![4](https://github.com/user-attachments/assets/c6103b01-e03c-4eae-865a-a7441f744e2a)
-![5](https://github.com/user-attachments/assets/9de37e1e-2703-4de2-9318-c41a2250df3a)
-![6](https://github.com/user-attachments/assets/624b543f-3056-4107-a9de-1034e10b2af9)
-![7](https://github.com/user-attachments/assets/9f0c9310-3007-45aa-819d-449d6dabd944)
 
 
 ## 📱 Video Demo
