@@ -14,7 +14,7 @@
 ## 🖼️ Screenshots
 
 <div align="center">
-  <img src="[https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d" alt="CloudPhotos Logo" width="400" height="600" />
+  <img src="https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d" alt="CloudPhotos Logo" width="400" height="600" />
 </div>
 
 ![1](https://github.com/user-attachments/assets/f5722b20-6d3b-448a-b833-21777758c03d)
