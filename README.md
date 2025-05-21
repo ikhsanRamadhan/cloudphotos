@@ -26,7 +26,8 @@
 
 ## 📱 Video Demo
 
-[Click here to watch the demo video](https://youtu.be/demo-link)
+[![CloudPhotos-demo](https://img.youtube.com/vi/m7gOArQ56NU/0.jpg)](https://www.youtube.com/watch?v=m7gOArQ56NU)
+
 
 *Note: Replace the placeholder link above with your actual demo video link*
 
@@ -76,8 +77,8 @@ Access detailed information about your media:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/CloudPhotos.git
-cd CloudPhotos
+git clone https://github.com/ikhsanRamadhan/cloudphotos.git
+cd cloudphotos
 ```
 
 2. Install dependencies:
@@ -108,6 +109,11 @@ expo start
 
 Or you can download the .apk and install it on your android device
 
+For Account tester you can use this:
+```
+user: bob.tester@gmail.com
+password: 12341234
+```
 
 ## 📄 License
 
