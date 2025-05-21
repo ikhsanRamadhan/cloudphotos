@@ -29,8 +29,6 @@
 [![CloudPhotos-demo](https://img.youtube.com/vi/m7gOArQ56NU/0.jpg)](https://www.youtube.com/watch?v=m7gOArQ56NU)
 
 
-*Note: Replace the placeholder link above with your actual demo video link*
-
 ## ✨ Introduction
 
 CloudPhotos is an intelligent mobile gallery application built with React Native and Expo that transforms how you organize and experience your memories. Leveraging Google AI, CloudPhotos automatically analyzes your photos and videos, categorizing them into meaningful collections while providing seamless cloud storage and comprehensive metadata access.
@@ -41,9 +39,9 @@ CloudPhotos is an intelligent mobile gallery application built with React Native
 
 Just like Google Photos, CloudPhotos creates intelligent "Highlights" collections by:
 - Analyzing each photo and video with Google AI
-- Automatically generating tags and themes
+- Automatically generating tags
 - Grouping similar content into meaningful collections
-- Creating personalized memory collections
+- Creating personalized highlights collections
 
 ### Secure Cloud Storage
 
