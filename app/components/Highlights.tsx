@@ -1,5 +1,5 @@
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Image } from 'expo-image';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -21,114 +21,98 @@ const Highlights = () => {
     const [highlights, setHighlights] = useState<any[]>([]);
     const navigation = useNavigation<NavigationProp>();
 
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    const isRunningRef = useRef(false);
+    const hasStartedRef = useRef(false);
+
+    const MAX_RETRIES = 3;
+    const BASE_RETRY_DELAY = 4000;
+    const RATE_LIMIT_DELAY = 4000;
 
     const insertTagsToAssets = async () => {
+        if (isRunningRef.current) {
+            return;
+        }
+        
+        isRunningRef.current = true;
         setIsAnalyzing(true);
-    
-        const RATE_LIMIT_DELAY = 4000; // 4 seconds to prevent rate limit
-        const RETRY_DELAY = 18000; // 18 seconds for retrying
-    
         const analyzedAssets: any[] = [];
-    
+        
         try {
             for (const asset of assets) {
-                const assetKey = asset.id || asset.name || asset.uri;
-    
+                const assetKey = asset.id.toString();
+        
                 try {
                     const cachedStr = await AsyncStorage.getItem(assetKey);
+            
                     if (cachedStr) {
-                        const cached = JSON.parse(cachedStr);
-                        analyzedAssets.push({
-                            ...asset,
-                            ...cached,
-                        });
-                        continue;
-                    }
-    
-                    let uri: string;
-                    if (asset.isLocalAsset) {
-                        uri = asset.uri;
+                        try {
+                            const cached = JSON.parse(cachedStr);
+                            analyzedAssets.push({ ...asset, ...cached });
+                            continue;
+                        } catch (err) {
+                            console.warn(`[Cache parse error] Failed to parse cache for asset ${assetKey}`, err);
+                        }
                     } else {
-                        uri = getImagekitUrlFromPath(`${userId}/${asset.name}`, [{ width: 500 }]);
+                        console.log(`[Cache miss] No cache for asset: ${assetKey}`);
                     }
-    
-                    try {
-                        const result = await callGeminiAPI(asset, uri);
-                        if (result) {
-                            const enriched = {
-                                ...asset,
-                                tags: result.tags,
-                                quality: result.quality,
-                                caption: result.caption,
-                            };
-    
-                            await AsyncStorage.setItem(
-                                assetKey,
-                                JSON.stringify({
-                                    tags: result.tags,
-                                    quality: result.quality,
-                                    caption: result.caption,
-                                })
-                            );
-    
-                            analyzedAssets.push(enriched);
-                        } else {
-                            analyzedAssets.push(asset);
-                        }
-                    } catch (error: any) {
-                        // Handle 429 error with backoff
-                        if (error?.message?.includes("429")) {
-                            console.warn("Rate limited. Retrying after delay...");
-                            await sleep(RETRY_DELAY);
-                            // Retry once after delay
-                            try {
-                                const result = await callGeminiAPI(asset, uri);
-                                if (result) {
-                                    const enriched = {
-                                        ...asset,
-                                        tags: result.tags,
-                                        quality: result.quality,
-                                        caption: result.caption,
-                                    };
-                                    await AsyncStorage.setItem(
-                                        assetKey,
-                                        JSON.stringify({
-                                            tags: result.tags,
-                                            quality: result.quality,
-                                            caption: result.caption,
-                                        })
-                                    );
-                                    analyzedAssets.push(enriched);
-                                    continue;
-                                }
-                            } catch (retryError) {
-                                console.error("Retry failed for asset:", assetKey, retryError);
-                            }
-                        } else {
-                            console.error("Error analyzing asset:", assetKey, error);
-                        }
-    
+            
+                    const uri = asset.isLocalAsset
+                        ? asset.uri
+                        : getImagekitUrlFromPath(`${userId}/${asset.name}`, [{ width: 500 }]);
+            
+                    const result = await retryCallGeminiAPI(asset, uri);
+            
+                    if (result && cachedStr !== JSON.stringify(result)) {
+                        const enriched = { ...asset, ...result };
+                        await AsyncStorage.setItem(assetKey, JSON.stringify(result));
+                        analyzedAssets.push(enriched);
+                    } else {
                         analyzedAssets.push(asset);
                     }
-    
+            
                     await sleep(RATE_LIMIT_DELAY);
                 } catch (err) {
                     console.error("Unexpected error processing asset:", assetKey, err);
                     analyzedAssets.push(asset);
                 }
             }
-    
+        
             generateHighlights(analyzedAssets);
         } catch (e) {
             console.error("Unexpected error during asset analysis:", e);
         } finally {
             setIsAnalyzing(false);
+            isRunningRef.current = false;
         }
-    };    
+    };
+
+    const retryCallGeminiAPI = async (asset: any, uri: string) => {
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+            try {
+                return await callGeminiAPI(asset, uri);
+            } catch (error: any) {
+                if (error?.message?.includes("429")) {
+                    const delay = BASE_RETRY_DELAY * Math.pow(2, attempt); // exponential backoff
+                    console.warn(`Rate limited. Retry #${attempt} in ${delay / 1000}s`);
+                    await sleep(delay);
+                } else {
+                    console.error("Gemini API error (non-429):", error);
+                    break; // don't retry non-429 errors
+                }
+            }
+        }
+
+        console.error(`Failed to process after ${MAX_RETRIES} attempts.`);
+        return null;
+    };
 
     useEffect(() => {
-        insertTagsToAssets();
+        if (!hasStartedRef.current && assets.length > 0) {
+            hasStartedRef.current = true;
+            insertTagsToAssets();
+        }
     }, [assets]);
 
     const generateHighlights = (analyzed: any) => {
