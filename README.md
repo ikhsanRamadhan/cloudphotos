@@ -21,6 +21,7 @@
   <img src="https://github.com/user-attachments/assets/9de37e1e-2703-4de2-9318-c41a2250df3a" alt="CloudPhotos5" width="200" />
   <img src="https://github.com/user-attachments/assets/624b543f-3056-4107-a9de-1034e10b2af9" alt="CloudPhotos6" width="200" />
   <img src="https://github.com/user-attachments/assets/9f0c9310-3007-45aa-819d-449d6dabd944" alt="CloudPhotos7" width="200" />
+  <img src="https://github.com/user-attachments/assets/a74f03fd-8f7d-478d-a7d9-eea1498c054e" alt="CloudPhotos7" width="200" />
 </div>
 
 
