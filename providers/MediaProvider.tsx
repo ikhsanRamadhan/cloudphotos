@@ -514,7 +514,7 @@ export default function MediaContextProvider({ children }: PropsWithChildren) {
         return match ? match[1] : 'jpg';
     };
 
-    const callGeminiAPI = async (asset: any, uri: string): Promise<{ tags: string[], quality: string, caption: string } | null> => {
+    const callGeminiAPI = async (asset: any, uri: string): Promise<{ tags: string[]; quality: string; caption: string } | null> => {
         let base64string = '';
         
         if (asset.uri) {
@@ -523,63 +523,59 @@ export default function MediaContextProvider({ children }: PropsWithChildren) {
             base64string = await urlToBase64(uri);
         }
         
+        const mimeType = mime.getType(asset.filename || asset.metadata?.fileName || '') || 'image/jpeg';
+        
         try {
-            const config = {
-                responseMimeType: 'text/plain',
-            };
-            
-            const model = 'gemma-3-27b-it';
-            
             const contents = [
                 {
-                    role: 'user',
-                    parts: [
-                        {
-                            inlineData: {
-                                data: base64string,
-                                mimeType: mime.getType(asset.filename || asset.metadata?.fileName || '') || 'image/jpeg',
-                            },
+                role: 'user',
+                parts: [
+                    {
+                        inlineData: {
+                            data: base64string,
+                            mimeType,
                         },
-                        {
-                            text: `Describe this image briefly and identify key objects or themes. Return the result as ONLY valid JSON without markdown, no backticks or explanation. with fields: tags (array of strings only 2 or less that describe the image the most clearly and more generically), caption (string), quality (string: 'high', 'medium', or 'low')`,
-                        },
-                    ],
+                    },
+                    {
+                        text: `Describe this image briefly and identify key objects or themes. Return the result as ONLY valid JSON without markdown, no backticks or explanation. with fields: tags (array of strings only 2 or less that describe the image the most clearly and more generically), caption (string), quality (string: 'high', 'medium', or 'low')`,
+                    },
+                ],
                 },
             ];
-            
+        
             const result = await ai.models.generateContent({
-                model,
-                config,
+                model: 'gemini-2.0-flash-lite',
+                config: {
+                    responseMimeType: 'text/plain',
+                },
                 contents,
             });
-            
-            const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-            
-            if (!text) {
-                console.warn('No text response from Gemini');
+        
+            const raw = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!raw) {
+                console.warn("Empty Gemini response");
                 return null;
             }
-            
+        
             try {
-                const parsed = JSON.parse(text);
-                console.log('Parsed JSON:', JSON.stringify(parsed, null, 2));
-                return parsed;
-            } catch (e) {
-                const cleaned = text
-                    .replace(/```json\s*/i, '')
-                    .replace(/```$/, '')
+                return JSON.parse(raw);
+            } catch {
+                const cleaned = raw
+                    .replace(/^```json|```$/g, '')
+                    .replace(/^[^{]+/, '')
                     .trim();
+            
                 try {
                     const parsed = JSON.parse(cleaned);
-                    console.log('Parsed JSON after cleanup:', JSON.stringify(parsed, null, 2));
+                    console.log("Finished parsing cleaned JSON:", JSON.stringify(parsed, null, 2));
                     return parsed;
-                } catch (err) {
-                    console.warn('Still not valid JSON after cleaning:', cleaned);
+                } catch (e2) {
+                    console.warn("Failed to parse cleaned JSON:", cleaned);
                     return null;
                 }
             }
         } catch (error) {
-            console.error('Error calling Gemini API:', error);
+            console.error("Error calling Gemini API:", error);
             throw error;
         }
     };
